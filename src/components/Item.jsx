@@ -1,9 +1,10 @@
 import React from 'react';
 import { getCart, updateCart } from '../services/cart.js';
 
-export default function CartProduct({ cartProduct }) {
-    async function handleChange() {
-      console.log('To be implemented')
+export default function Item({ product, qtd }) {
+  console.log(qtd);
+  async function handleChange() {
+    console.log('To be implemented');
     /* const cart = await getCart();
     const products = cart.products;
     products.forEach(product => delete product._id);
@@ -13,6 +14,7 @@ export default function CartProduct({ cartProduct }) {
     const newCart = { _id: cart.id, products: products, couponsId: cart.couponsId };
     await updateCart(newCart); */
   }
+
   return (
     <div
       style={{
@@ -23,12 +25,14 @@ export default function CartProduct({ cartProduct }) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-      }}>
+      }}
+    >
       <h4>
-        Quantity: <small>{cartProduct.qtd}</small>
+        <small>{product.name}</small>
       </h4>
-      <button onClick={() => handleChange()}>Add to cart</button>
-      <hr />
+      <h4>
+        Quantity: <small>{qtd}</small>
+      </h4>
     </div>
   );
 }

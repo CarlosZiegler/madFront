@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { getCart, updateCart } from '../services/cart.js';
-import Product from './Product';
-import CartProduct from './CartProduct';
+import Item from './Item';
 
 export default function Cart() {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       const result = await getCart();
-      console.log(result.products);
+
       setProducts(result.products);
     }
     fetchData();
   }, []);
+  console.log(products);
   return (
     <div style={{ textAlign: 'center' }}>
       <h3>Products in cart</h3>
@@ -22,9 +23,10 @@ export default function Cart() {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
-        }}>
-        {products.map(cartProduct => (
-          <CartProduct cartProduct={cartProduct} key={cartProduct.productId} />
+        }}
+      >
+        {products.map((product, index) => (
+          <Item product={product.productId} qtd={product.qtd} key={index} />
         ))}
       </div>
     </div>

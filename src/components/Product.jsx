@@ -6,12 +6,24 @@ export default function Product({ product }) {
 
   async function addToCart() {
     const cart = await getCart();
-    const products = cart.products.map(product => ({ productId: product.productId, qtd: product.qtd }));
-    products.findIndex(el => el.productId === product.id) > -1
-      ? (products[products.findIndex(el => el.productId === product.id)].qtd += +quantity)
+
+    const products = cart.products.map((product) => ({
+      productId: product.productId,
+      qtd: product.qtd,
+    }));
+
+    products.findIndex((el) => el.productId === product.id) > -1
+      ? (products[
+          products.findIndex((el) => el.productId === product.id)
+        ].qtd += +quantity)
       : products.push({ productId: product.id, qtd: +quantity });
-    const newCart = { _id: cart.id, products: products, couponsId: cart.couponsId };
-    console.log(newCart);
+
+    const newCart = {
+      _id: cart.id,
+      products: products,
+      couponsId: cart.couponsId,
+    };
+
     await updateCart(newCart);
   }
 
@@ -25,7 +37,8 @@ export default function Product({ product }) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-      }}>
+      }}
+    >
       <h4>
         Title: <small>{product.name}</small>
       </h4>
@@ -37,8 +50,8 @@ export default function Product({ product }) {
       </h5>
       <input
         value={quantity}
-        type='number'
-        onChange={event => setQuantity(event.target.value)}
+        type="number"
+        onChange={(event) => setQuantity(event.target.value)}
       />
       <button onClick={() => addToCart()}>Add to cart</button>
       <hr />
